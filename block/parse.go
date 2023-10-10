@@ -8,11 +8,10 @@ func Generate(t *token.Token) ([]*Block, error) {
 	curToken := t
 
 	// Avoid empty markdown file
-	if t == nil {
-		return blocks, nil
-	}
-
-	for curToken.Next != nil {
+	for {
+		if curToken == nil || curToken.Next == nil {
+			break
+		}
 		switch curToken.Kind {
 		case token.RESERVED:
 			block, curToken = reserved(curToken)
@@ -32,6 +31,8 @@ func reserved(token *token.Token) (*Block, *token.Token) {
 	switch token.Value {
 	case "#":
 		return header(token)
+	case "-":
+		return list(token)
 	default:
 		panic(1)
 	}
@@ -58,15 +59,37 @@ func header(t *token.Token) (*Block, *token.Token) {
 		}
 	}
 
-	res := NewBlock(ND_HEADER, value, hdrLvl, nil)
+	res := NewBlock(ND_HEADER, value, hdrLvl, 0, nil)
+	return res, curToken
+}
+
+func list(t *token.Token) (*Block, *token.Token) {
+	curToken := t.Next
+	value := ""
+	for {
+		if curToken.Kind == token.SEPARATE {
+			curToken = curToken.Next
+			break
+		}
+		value += curToken.Value
+		curToken = curToken.Next
+	}
+
+	res := NewBlock(ND_LIST, value, 0, t.Depth, nil)
+	if curToken != nil && curToken.Next != nil && curToken.Kind == token.RESERVED && curToken.Value == "-" {
+		var block *Block
+		block, curToken = list(curToken)
+		res.Nest = block
+	}
 	return res, curToken
 }
 
 func plaintext(t *token.Token) (*Block, *token.Token) {
-	res := NewBlock(ND_VALUE, t.Value, 1, nil)
+	res := NewBlock(ND_VALUE, t.Value, 0, 0, nil)
 	nextToken := t.Next
 
-	for nextToken.Kind == token.PLAIN_TEXT {
+	for nextToken != nil && nextToken.Kind == token.PLAIN_TEXT {
+
 		res.Value += nextToken.Value
 		nextToken = nextToken.Next
 	}

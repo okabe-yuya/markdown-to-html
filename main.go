@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	md, err := os.Open("static/md/empty.md")
+	md, err := os.Open("static/md/list/any_nest.md")
 	defer md.Close()
 	if err != nil {
 		fmt.Println(err)
@@ -22,7 +22,7 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	WriteHtml(html, "parsed.html")
+	WriteHtml(html, "verification.html")
 }
 
 func GenrateHtml(f *os.File) (string, error) {
