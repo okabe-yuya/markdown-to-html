@@ -1,10 +1,10 @@
 package token
 
 type Token struct {
-	Kind   TokenKind
-	Value  string
-	Next   *Token
-	Lenght int
+	Kind  TokenKind
+	Value string
+	Next  *Token
+	Depth int
 }
 
 type TokenKind int
@@ -23,19 +23,19 @@ var RESERVED_RUNES = []rune{
 
 func InitToken() *Token {
 	return &Token{
-		Kind:   START,
-		Value:  "",
-		Next:   nil,
-		Lenght: 0,
+		Kind:  START,
+		Value: "",
+		Next:  nil,
+		Depth: 0,
 	}
 }
 
-func NewToken(cur *Token, kind TokenKind, value string, len int) *Token {
+func NewToken(cur *Token, kind TokenKind, value string, depth int) *Token {
 	token := &Token{
-		Kind:   kind,
-		Value:  value,
-		Next:   nil,
-		Lenght: len,
+		Kind:  kind,
+		Value: value,
+		Next:  nil,
+		Depth: depth,
 	}
 	cur.Next = token
 	return token

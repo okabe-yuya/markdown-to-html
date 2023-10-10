@@ -23,41 +23,46 @@ func ResultAndExpect(filename string) (string, string, error) {
 	return html, string(bytes), nil
 }
 
-func TestH1Only(t *testing.T) {
-	res, expect, err := ResultAndExpect("h1_only")
+func CommonExecuter(path string, t *testing.T) {
+	res, expect, err := ResultAndExpect(path)
 	if err != nil {
-		t.Errorf("[ERROR] Caused error: %e", err)
+		t.Errorf("[ERROR] Caused error: %v", err)
 		t.Fail()
 	}
 
 	if res != expect {
-		t.Errorf("[ERROR] Failed Test (Expect=%s, Result=%s): \nerror: %e", res, expect, err)
+		t.Errorf("[ERROR] Failed Test (Result=\n%s\n, Expect=\n%s\n): \nerror: %v", res, expect, err)
 		t.Fail()
 	}
 }
 
-func TestH1ToH6(t *testing.T) {
-	res, expect, err := ResultAndExpect("h1_h6")
-	if err != nil {
-		t.Errorf("[ERROR] Caused error: %e", err)
-		t.Fail()
-	}
-
-	if res != expect {
-		t.Errorf("[ERROR] Failed Test (Expect=%s, Result=%s): \nerror: %e", res, expect, err)
-		t.Fail()
-	}
-}
-
+// common
 func TestEmpty(t *testing.T) {
-	res, expect, err := ResultAndExpect("empty")
-	if err != nil {
-		t.Errorf("[ERROR] Caused error: %e", err)
-		t.Fail()
-	}
+	CommonExecuter("empty", t)
+}
 
-	if res != expect {
-		t.Errorf("[ERROR] Failed Test (Expect=%s, Result=%s): \nerror: %e", res, expect, err)
-		t.Fail()
-	}
+// head
+func TestHeadH1_Only(t *testing.T) {
+	CommonExecuter("head/h1_only", t)
+}
+
+func TestHeadH1ToH6(t *testing.T) {
+	CommonExecuter("head/h1_h6", t)
+}
+
+// list
+func TestListAnyNest(t *testing.T) {
+	CommonExecuter("list/any_nest", t)
+}
+
+func TestListNest(t *testing.T) {
+	CommonExecuter("list/nest", t)
+}
+
+func TestListNoNest(t *testing.T) {
+	CommonExecuter("list/no_nest", t)
+}
+
+func TestListTwoNest(t *testing.T) {
+	CommonExecuter("list/two_nest", t)
 }

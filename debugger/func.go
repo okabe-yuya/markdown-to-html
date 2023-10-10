@@ -10,7 +10,7 @@ import (
 func Token(token *token.Token) {
 	c := token
 	for c.Next != nil {
-		fmt.Printf(format(), c.Kind, c.Value)
+		fmt.Printf(format(), c.Kind, c.Value, c.Depth)
 		c = c.Next
 	}
 }
@@ -22,5 +22,5 @@ func Block(blocks []*block.Block) {
 }
 
 func format() string {
-	return "kind: %d, value: %s \n"
+	return "kind: %d, value: %s, size: %d \n"
 }
