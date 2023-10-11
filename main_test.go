@@ -41,6 +41,10 @@ func TestEmpty(t *testing.T) {
 	CommonExecuter("empty", t)
 }
 
+func TestVariety(t *testing.T) {
+	CommonExecuter("variety", t)
+}
+
 // head
 func TestHeadH1_Only(t *testing.T) {
 	CommonExecuter("head/h1_only", t)

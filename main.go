@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	md, err := os.Open("static/md/weight/in_text.md")
+	md, err := os.Open("static/md/variety.md")
 	defer md.Close()
 	if err != nil {
 		fmt.Println(err)
@@ -23,7 +23,7 @@ func main() {
 		os.Exit(1)
 	}
 	fmt.Println(html)
-	// WriteHtml(html, "verification.html")
+	WriteHtml(html, "verification.html")
 }
 
 func GenrateHtml(f *os.File) (string, error) {
