@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/okabe-yuya/makrdown-to-html/block"
-	htmlgen "github.com/okabe-yuya/makrdown-to-html/html-gen"
-	"github.com/okabe-yuya/makrdown-to-html/token"
+	"github.com/okabe-yuya/makrdown-to-html/generator"
+	"github.com/okabe-yuya/makrdown-to-html/lexer"
+	"github.com/okabe-yuya/makrdown-to-html/parser"
 )
 
 func main() {
@@ -26,16 +26,16 @@ func main() {
 }
 
 func GenrateHtml(f *os.File) (string, error) {
-	token, err := token.Generate(f)
+	token, err := lexer.Tokenize(f)
 	if err != nil {
 		return "", err
 	}
 
-	blocks, err := block.Generate(token)
+	ast, err := parser.Ast(token)
 	if err != nil {
 		return "", err
 	}
-	return htmlgen.Exec(blocks), nil
+	return generator.Html(ast), nil
 }
 
 func WriteHtml(html, filename string) error {

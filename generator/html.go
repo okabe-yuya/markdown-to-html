@@ -1,23 +1,23 @@
-package htmlgen
+package generator
 
 import (
 	"fmt"
 
-	"github.com/okabe-yuya/makrdown-to-html/block"
+	"github.com/okabe-yuya/makrdown-to-html/parser"
 )
 
-func Exec(blocks []*block.Block) string {
+func Html(blocks []*parser.Node) string {
 	html := "<html>\n"
 	html += header()
 	html += "<body>\n"
 	for _, b := range blocks {
 		switch b.Kind {
-		case block.ND_HEADER:
+		case parser.ND_HEADER:
 			html += fmt.Sprintf("<h%d>%s</h%d>\n", b.Level, b.Value, b.Level)
-		case block.ND_LIST:
+		case parser.ND_LIST:
 			h, _ := listToHtml(b)
 			html += h
-		case block.ND_VALUE:
+		case parser.ND_VALUE:
 			html += fmt.Sprintf("<p>%s</p>\n", b.Value)
 		default:
 			continue
@@ -35,7 +35,7 @@ func header() string {
 	return head
 }
 
-func listToHtml(b *block.Block) (string, *block.Block) {
+func listToHtml(b *parser.Node) (string, *parser.Node) {
 	curBlock := b
 	res := "<ul>\n"
 
