@@ -81,6 +81,8 @@ func _valueToHtml(node *parser.Node) string {
 		html += node.Value
 	case parser.ND_WEIGHT:
 		html += fmt.Sprintf("<b>%s</b>", node.Value)
+	case parser.ND_ITALIC:
+		html += fmt.Sprintf("<i>%s</i>", node.Value)
 	}
 
 	if node.Nest != nil {

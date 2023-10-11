@@ -32,7 +32,7 @@ func reserved(token *lexer.Token) (*Node, *lexer.Token) {
 		return parseHeader(token)
 	case "-":
 		return parseList(token)
-	case "*":
+	case "*", "_":
 		return parseText(token)
 	default:
 		panic(1)
