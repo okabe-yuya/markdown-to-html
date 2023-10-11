@@ -2,11 +2,11 @@ package parser
 
 import "github.com/okabe-yuya/makrdown-to-html/lexer"
 
-func parserList(token *lexer.Token) (*Node, *lexer.Token) {
+func parseList(token *lexer.Token) (*Node, *lexer.Token) {
 	node, curToken := firstList(token)
 	if curToken != nil && curToken.Next != nil && curToken.Kind == lexer.RESERVED && curToken.Value == "-" {
 		var node_ *Node
-		node_, curToken = parserList(curToken)
+		node_, curToken = parseList(curToken)
 		node.Nest = node_
 	}
 	return node, curToken
