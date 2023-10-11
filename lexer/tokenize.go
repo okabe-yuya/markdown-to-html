@@ -1,4 +1,4 @@
-package token
+package lexer
 
 import (
 	"bufio"
@@ -7,7 +7,7 @@ import (
 	"unicode"
 )
 
-func Generate(f *os.File) (*Token, error) {
+func Tokenize(f *os.File) (*Token, error) {
 	var curToken *Token
 	head := InitToken()
 	curToken = head

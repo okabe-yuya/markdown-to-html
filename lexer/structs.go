@@ -1,4 +1,4 @@
-package token
+package lexer
 
 type Token struct {
 	Kind  TokenKind
@@ -12,9 +12,9 @@ type TokenKind int
 const (
 	END        TokenKind = 0
 	START      TokenKind = 1
-	RESERVED   TokenKind = 2
-	PLAIN_TEXT TokenKind = 3
-	SEPARATE   TokenKind = 99
+	SEPARATE   TokenKind = 2
+	RESERVED   TokenKind = 3
+	PLAIN_TEXT TokenKind = 4
 )
 
 var RESERVED_RUNES = []rune{
