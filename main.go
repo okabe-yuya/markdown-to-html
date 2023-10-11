@@ -31,11 +31,11 @@ func GenrateHtml(f *os.File) (string, error) {
 		return "", err
 	}
 
-	blocks, err := parser.Generate(token)
+	ast, err := parser.Ast(token)
 	if err != nil {
 		return "", err
 	}
-	return generator.Html(blocks), nil
+	return generator.Html(ast), nil
 }
 
 func WriteHtml(html, filename string) error {
