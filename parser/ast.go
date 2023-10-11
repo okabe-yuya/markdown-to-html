@@ -31,8 +31,30 @@ func reserved(token *lexer.Token) (*Node, *lexer.Token) {
 	case "#":
 		return parseHeader(token)
 	case "-":
-		return parserList(token)
+		return parseList(token)
+	case "*":
+		return parseText(token)
 	default:
 		panic(1)
 	}
+}
+
+func expectNext(token *lexer.Token, kind lexer.TokenKind, expect string) bool {
+	if token.Next == nil {
+		return false
+	}
+
+	next := token.Next
+	return next.Kind == kind && next.Value == expect
+}
+
+func seek(token *lexer.Token, n int) *lexer.Token {
+	res := token
+	for i := 0; i < n; i++ {
+		res = res.Next
+		if res == nil {
+			break
+		}
+	}
+	return res
 }

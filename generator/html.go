@@ -6,19 +6,20 @@ import (
 	"github.com/okabe-yuya/makrdown-to-html/parser"
 )
 
-func Html(blocks []*parser.Node) string {
+func Html(nodes []*parser.Node) string {
 	html := "<html>\n"
 	html += header()
 	html += "<body>\n"
-	for _, b := range blocks {
-		switch b.Kind {
+	for _, node := range nodes {
+		switch node.Kind {
 		case parser.ND_HEADER:
-			html += fmt.Sprintf("<h%d>%s</h%d>\n", b.Level, b.Value, b.Level)
+			html += fmt.Sprintf("<h%d>%s</h%d>\n", node.Level, node.Value, node.Level)
 		case parser.ND_LIST:
-			h, _ := listToHtml(b)
+			h, _ := listToHtml(node)
 			html += h
 		case parser.ND_VALUE:
-			html += fmt.Sprintf("<p>%s</p>\n", b.Value)
+			h := valueToHtml(node)
+			html += h
 		default:
 			continue
 		}
@@ -35,28 +36,55 @@ func header() string {
 	return head
 }
 
-func listToHtml(b *parser.Node) (string, *parser.Node) {
-	curBlock := b
+func listToHtml(node *parser.Node) (string, *parser.Node) {
+	curNode := node
 	res := "<ul>\n"
 
 	for {
-		if curBlock == nil {
+		if curNode == nil {
 			break
 		}
 
-		if b.Depth == curBlock.Depth {
-			res += fmt.Sprintf("<li>%s</li>\n", curBlock.Value)
-			curBlock = curBlock.Nest
+		if node.Depth == curNode.Depth {
+			res += fmt.Sprintf("<li>%s</li>\n", curNode.Value)
+			curNode = curNode.Nest
 		} else {
-			if b.Depth > curBlock.Depth {
+			if node.Depth > curNode.Depth {
 				break
 			}
-			r, bk := listToHtml(curBlock)
-			curBlock = bk
+			r, bk := listToHtml(curNode)
+			curNode = bk
 			res += r
 		}
 	}
 
 	res += "</ul>\n"
-	return res, curBlock
+	return res, curNode
+}
+
+func valueToHtml(node *parser.Node) string {
+	if node.Nest == nil {
+		return fmt.Sprintf("<p>%s</p>\n", node.Value)
+	} else {
+		html := "<p>"
+		html += node.Value
+		html += _valueToHtml(node.Nest)
+		html += "</p>\n"
+		return html
+	}
+}
+
+func _valueToHtml(node *parser.Node) string {
+	html := ""
+	switch node.Kind {
+	case parser.ND_VALUE:
+		html += node.Value
+	case parser.ND_WEIGHT:
+		html += fmt.Sprintf("<b>%s</b>", node.Value)
+	}
+
+	if node.Nest != nil {
+		html += _valueToHtml(node.Nest)
+	}
+	return html
 }

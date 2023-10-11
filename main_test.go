@@ -66,3 +66,12 @@ func TestListNoNest(t *testing.T) {
 func TestListTwoNest(t *testing.T) {
 	CommonExecuter("list/two_nest", t)
 }
+
+// weight
+func TestWeightSimple(t *testing.T) {
+	CommonExecuter("weight/simple", t)
+}
+
+func TestWeightInText(t *testing.T) {
+	CommonExecuter("weight/in_text", t)
+}
