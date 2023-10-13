@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	md, err := os.Open("static/md/variety.md")
+	md, err := os.Open("static/md/list/weight.md")
 	defer md.Close()
 	if err != nil {
 		fmt.Println(err)

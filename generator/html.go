@@ -46,7 +46,7 @@ func listToHtml(node *parser.Node) (string, *parser.Node) {
 		}
 
 		if node.Depth == curNode.Depth {
-			res += fmt.Sprintf("<li>%s</li>\n", curNode.Value)
+			res += fmt.Sprintf("<li>%s</li>\n", valueToHtml(curNode))
 			curNode = curNode.Nest
 		} else {
 			if node.Depth > curNode.Depth {
