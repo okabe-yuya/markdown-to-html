@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	md, err := os.Open("static/md/list/weight.md")
+	md, err := os.Open("static/md/sample.md")
 	defer md.Close()
 	if err != nil {
 		fmt.Println(err)
@@ -22,7 +22,6 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	fmt.Println(html)
 	WriteHtml(html, "verification.html")
 }
 
