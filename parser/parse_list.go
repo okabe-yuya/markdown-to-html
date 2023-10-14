@@ -13,17 +13,8 @@ func parseList(token *lexer.Token) (*Node, *lexer.Token) {
 }
 
 func firstList(token *lexer.Token) (*Node, *lexer.Token) {
-	curToken := token.Next
-	value := ""
-	for {
-		if curToken.Kind == lexer.SEPARATE {
-			curToken = curToken.Next
-			break
-		}
-		value += curToken.Value
-		curToken = curToken.Next
-	}
+	txtNode, curToken := parseText(token.Next)
+	node := NewNode(ND_LIST, "", 0, token.Depth, txtNode)
 
-	node := NewNode(ND_LIST, value, 0, token.Depth, nil)
 	return node, curToken
 }
