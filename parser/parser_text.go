@@ -5,6 +5,14 @@ import (
 )
 
 func parseText(token *lexer.Token) (*Node, *lexer.Token) {
+	node, curToken := _parseText(token)
+	if curToken != nil && curToken.Kind == lexer.SEPARATE {
+		curToken = curToken.Next
+	}
+	return node, curToken
+}
+
+func _parseText(token *lexer.Token) (*Node, *lexer.Token) {
 	var node_ *Node
 	curToken := token
 	node := NewNode(ND_VALUE, "", 0, 0)
@@ -22,7 +30,7 @@ L:
 			} else {
 				break L
 			}
-		case lexer.PLAIN_TEXT:
+		case lexer.PLAIN_TEXT, lexer.BLANK:
 			if node.Nest == nil {
 				node.Value += curToken.Value
 				curToken = curToken.Next
@@ -31,7 +39,7 @@ L:
 				for curNode.Nest != nil {
 					curNode = curNode.Nest
 				}
-				node_, curToken = parseText(curToken)
+				node_, curToken = _parseText(curToken)
 				curNode.Nest = node_
 			}
 		default:

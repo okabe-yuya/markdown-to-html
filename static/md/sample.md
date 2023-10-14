@@ -16,10 +16,10 @@
 - a
   - **b**
     - __c__
-      - **b**and__c__
+      - **b** and __c__
 
 **weight**
 __italic__
-**weight**and__italic__
+**weight** and __italic__
 
 hello world

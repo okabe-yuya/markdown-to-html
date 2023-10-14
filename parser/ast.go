@@ -15,12 +15,13 @@ func Ast(token *lexer.Token) ([]*Node, error) {
 		case lexer.RESERVED:
 			node, curToken = reserved(curToken)
 			nodes = append(nodes, node)
-		case lexer.PLAIN_TEXT:
+		case lexer.PLAIN_TEXT, lexer.BLANK:
 			node, curToken = parseText(curToken)
 			nodes = append(nodes, node)
 		case lexer.SEPARATE:
+			node = NewNode(ND_NEW_LINE, "\n", 0, 0)
 			curToken = curToken.Next
-			continue
+			nodes = append(nodes, node)
 		}
 	}
 	return nodes, nil
@@ -31,30 +32,11 @@ func reserved(token *lexer.Token) (*Node, *lexer.Token) {
 	case "#":
 		return parseHeader(token)
 	case "-":
-		return parseList(token)
+		node, curToken := parseList(token)
+		return node, curToken
 	case "*", "_":
 		return parseText(token)
 	default:
 		panic(1)
 	}
-}
-
-func expectNext(token *lexer.Token, kind lexer.TokenKind, expect string) bool {
-	if token.Next == nil {
-		return false
-	}
-
-	next := token.Next
-	return next.Kind == kind && next.Value == expect
-}
-
-func seek(token *lexer.Token, n int) *lexer.Token {
-	res := token
-	for i := 0; i < n; i++ {
-		res = res.Next
-		if res == nil {
-			break
-		}
-	}
-	return res
 }

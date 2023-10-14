@@ -12,9 +12,10 @@ type TokenKind int
 const (
 	END        TokenKind = 0
 	START      TokenKind = 1
-	SEPARATE   TokenKind = 2
-	RESERVED   TokenKind = 3
-	PLAIN_TEXT TokenKind = 4
+	BLANK      TokenKind = 2
+	SEPARATE   TokenKind = 3
+	RESERVED   TokenKind = 4
+	PLAIN_TEXT TokenKind = 5
 )
 
 var RESERVED_RUNES = []rune{
