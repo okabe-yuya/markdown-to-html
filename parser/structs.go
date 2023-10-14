@@ -12,12 +12,13 @@ type Node struct {
 type NodeKind int
 
 const (
-	ND_END    NodeKind = 0
-	ND_VALUE  NodeKind = 1
-	ND_HEADER NodeKind = 2
-	ND_LIST   NodeKind = 3
-	ND_WEIGHT NodeKind = 4
-	ND_ITALIC NodeKind = 5
+	ND_END      NodeKind = 0
+	ND_NEW_LINE NodeKind = 1
+	ND_VALUE    NodeKind = 2
+	ND_HEADER   NodeKind = 3
+	ND_LIST     NodeKind = 4
+	ND_WEIGHT   NodeKind = 5
+	ND_ITALIC   NodeKind = 6
 )
 
 func NewNode(kind NodeKind, value string, level, depth int) *Node {

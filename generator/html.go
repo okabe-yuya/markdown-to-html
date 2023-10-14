@@ -20,6 +20,8 @@ func Html(nodes []*parser.Node) string {
 		case parser.ND_VALUE:
 			h := valueToHtml(node)
 			html += h
+		case parser.ND_NEW_LINE:
+			html += "<br />\n"
 		default:
 			continue
 		}

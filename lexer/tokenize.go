@@ -23,10 +23,12 @@ func Tokenize(f *os.File) (*Token, error) {
 			return nil, err
 		}
 		if unicode.IsSpace(c) {
-			spaceCnt++
 			if IsSeparete(c) {
 				curToken = NewToken(curToken, SEPARATE, string(c), 0)
 				spaceCnt = 0
+			} else {
+				curToken = NewToken(curToken, BLANK, " ", 0)
+				spaceCnt++
 			}
 			continue
 		}

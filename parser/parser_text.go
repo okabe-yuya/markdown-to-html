@@ -22,7 +22,7 @@ L:
 			} else {
 				break L
 			}
-		case lexer.PLAIN_TEXT:
+		case lexer.PLAIN_TEXT, lexer.BLANK:
 			if node.Nest == nil {
 				node.Value += curToken.Value
 				curToken = curToken.Next
@@ -35,6 +35,9 @@ L:
 				curNode.Nest = node_
 			}
 		default:
+			if curToken.Kind == lexer.SEPARATE {
+				curToken = curToken.Next
+			}
 			break L
 		}
 	}
