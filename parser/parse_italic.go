@@ -17,6 +17,6 @@ func parseItalic(token *lexer.Token) (*Node, *lexer.Token) {
 	} else {
 		// ここにplain textのパースが必要
 	}
-	node := NewNode(ND_ITALIC, value, 1, 0, nil)
+	node := NewNode(ND_ITALIC, value, 1, 0)
 	return node, curToken
 }

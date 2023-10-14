@@ -7,14 +7,15 @@ func parseList(token *lexer.Token) (*Node, *lexer.Token) {
 	if curToken != nil && curToken.Next != nil && curToken.Kind == lexer.RESERVED && curToken.Value == "-" {
 		var node_ *Node
 		node_, curToken = parseList(curToken)
-		node.Nest = node_
+		node.Sub = node_
 	}
 	return node, curToken
 }
 
 func firstList(token *lexer.Token) (*Node, *lexer.Token) {
-	txtNode, curToken := parseText(token.Next)
-	node := NewNode(ND_LIST, "", 0, token.Depth, txtNode)
+	node := NewNode(ND_LIST, "", 0, token.Depth)
+	textNode, curToken := parseText(token.Next)
+	node.Nest = textNode
 
-	return node, curToken
+	return node, curToken.Next
 }

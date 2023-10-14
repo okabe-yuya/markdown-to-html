@@ -3,6 +3,7 @@ package parser
 type Node struct {
 	Kind  NodeKind
 	Nest  *Node
+	Sub   *Node // for list
 	Level int
 	Depth int
 	Value string
@@ -19,10 +20,9 @@ const (
 	ND_ITALIC NodeKind = 5
 )
 
-func NewNode(kind NodeKind, value string, level, depth int, nest *Node) *Node {
+func NewNode(kind NodeKind, value string, level, depth int) *Node {
 	return &Node{
 		Kind:  kind,
-		Nest:  nest,
 		Level: level,
 		Depth: depth,
 		Value: value,

@@ -7,7 +7,7 @@ import (
 func parseHeader(token *lexer.Token) (*Node, *lexer.Token) {
 	level, curToken := headerLevel(token)
 	value, curToken := headerValue(curToken)
-	res := NewNode(ND_HEADER, value, level, 0, nil)
+	res := NewNode(ND_HEADER, value, level, 0)
 	return res, curToken
 }
 

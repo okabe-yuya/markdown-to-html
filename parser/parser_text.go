@@ -7,7 +7,7 @@ import (
 func parseText(token *lexer.Token) (*Node, *lexer.Token) {
 	var node_ *Node
 	curToken := token
-	node := NewNode(ND_VALUE, "", 0, 0, nil)
+	node := NewNode(ND_VALUE, "", 0, 0)
 
 L:
 	for curToken != nil {

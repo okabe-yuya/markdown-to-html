@@ -46,8 +46,8 @@ func listToHtml(node *parser.Node) (string, *parser.Node) {
 		}
 
 		if node.Depth == curNode.Depth {
-			res += fmt.Sprintf("<li>%s</li>\n", valueToHtml(curNode))
-			curNode = curNode.Nest
+			res += fmt.Sprintf("<li>%s</li>\n", valueToHtmlForList(curNode.Nest))
+			curNode = curNode.Sub
 		} else {
 			if node.Depth > curNode.Depth {
 				break
@@ -60,6 +60,16 @@ func listToHtml(node *parser.Node) (string, *parser.Node) {
 
 	res += "</ul>\n"
 	return res, curNode
+}
+
+func valueToHtmlForList(node *parser.Node) string {
+	if node.Nest == nil {
+		return node.Value
+	} else {
+		html := node.Value
+		html += _valueToHtml(node.Nest)
+		return html
+	}
 }
 
 func valueToHtml(node *parser.Node) string {
