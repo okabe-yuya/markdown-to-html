@@ -4,9 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/okabe-yuya/makrdown-to-html/generator"
-	"github.com/okabe-yuya/makrdown-to-html/lexer"
-	"github.com/okabe-yuya/makrdown-to-html/parser"
+	"github.com/okabe-yuya/makrdown-to-html/adapter"
 )
 
 func main() {
@@ -17,25 +15,12 @@ func main() {
 		os.Exit(1)
 	}
 
-	html, err := GenrateHtml(md)
+	html, err := adapter.GenerateHtml(md)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 	WriteHtml(html, "verification.html")
-}
-
-func GenrateHtml(f *os.File) (string, error) {
-	token, err := lexer.Tokenize(f)
-	if err != nil {
-		return "", err
-	}
-
-	ast, err := parser.Ast(token)
-	if err != nil {
-		return "", err
-	}
-	return generator.Html(ast), nil
 }
 
 func WriteHtml(html, filename string) error {
