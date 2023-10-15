@@ -26,7 +26,7 @@ func parseLink(token *lexer.Token) (*Node, *lexer.Token) {
 		curToken = curToken.Next // )分
 	} else {
 		node, curToken = parseText(curToken.Next)
-		node.Value = fmt.Sprintf("[%s%s", display, node.Value)
+		node.Value = fmt.Sprintf("[%s]%s", display, node.Value)
 	}
 	return node, curToken
 }

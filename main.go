@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	md, err := os.Open("static/md/backquote/any.md")
+	md, err := os.Open("static/md/link/single.md")
 	defer md.Close()
 	if err != nil {
 		fmt.Println(err)
