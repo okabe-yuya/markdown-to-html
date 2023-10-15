@@ -31,6 +31,9 @@ L:
 			case "`":
 				node_, curToken = parseBackquote(curToken)
 				node.Nest = node_
+			case "[":
+				node_, curToken = parseLink(curToken)
+				node.Nest = node_
 			default:
 				break L
 			}

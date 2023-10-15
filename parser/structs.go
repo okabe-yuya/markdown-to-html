@@ -21,6 +21,7 @@ const (
 	ND_ITALIC    NodeKind = 6
 	ND_QUOTE     NodeKind = 7
 	ND_BACKQUOTE NodeKind = 8
+	ND_LINK      NodeKind = 9
 )
 
 func NewNode(kind NodeKind, value string, level, depth int) *Node {

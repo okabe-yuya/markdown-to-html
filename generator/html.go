@@ -116,23 +116,27 @@ func valueToHtml(node *parser.Node) string {
 
 func _valueToHtml(node *parser.Node) string {
 	html := ""
-	switch node.Kind {
+	curNode := node
+	switch curNode.Kind {
 	case parser.ND_VALUE:
-		html += node.Value
+		html += curNode.Value
 	case parser.ND_WEIGHT:
-		html += fmt.Sprintf("<b>%s</b>", node.Value)
+		html += fmt.Sprintf("<b>%s</b>", curNode.Value)
 	case parser.ND_ITALIC:
-		html += fmt.Sprintf("<i>%s</i>", node.Value)
+		html += fmt.Sprintf("<i>%s</i>", curNode.Value)
 	case parser.ND_BACKQUOTE:
-		if node.Level == 1 {
-			html += fmt.Sprintf("<code>%s</code>", node.Value)
-		} else if node.Level == 3 {
-			html += fmt.Sprintf("<pre><code>%s</code></pre>", node.Value)
+		if curNode.Level == 1 {
+			html += fmt.Sprintf("<code>%s</code>", curNode.Value)
+		} else if curNode.Level == 3 {
+			html += fmt.Sprintf("<pre><code>%s</code></pre>", curNode.Value)
 		}
+	case parser.ND_LINK:
+		html += fmt.Sprintf("<a href=%s>%s</a>", curNode.Value, curNode.Nest.Value)
+		curNode = curNode.Nest
 	}
 
-	if node.Nest != nil {
-		html += _valueToHtml(node.Nest)
+	if curNode.Nest != nil {
+		html += _valueToHtml(curNode.Nest)
 	}
 	return html
 }

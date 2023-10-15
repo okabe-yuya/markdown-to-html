@@ -130,3 +130,20 @@ func TestBackQuoteTriple(t *testing.T) {
 func TestBackQuoteAny(t *testing.T) {
 	CommonExecuter("backquote/any", t)
 }
+
+// link
+func TestLinkSingle(t *testing.T) {
+	CommonExecuter("link/single", t)
+}
+
+func TestLinkTwo(t *testing.T) {
+	CommonExecuter("link/two", t)
+}
+
+func TestLinkTextInLink(t *testing.T) {
+	CommonExecuter("link/text_in_link", t)
+}
+
+func TestLinkLinkAndText(t *testing.T) {
+	CommonExecuter("link/link_and_text", t)
+}
