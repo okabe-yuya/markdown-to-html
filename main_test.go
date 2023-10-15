@@ -96,3 +96,24 @@ func TestItalicInText(t *testing.T) {
 func TestItalicAnyItalic(t *testing.T) {
 	CommonExecuter("italic/any_italic", t)
 }
+
+// quote
+func TestQuoteSingle(t *testing.T) {
+	CommonExecuter("quote/single", t)
+}
+
+func TestQuoteNest(t *testing.T) {
+	CommonExecuter("quote/nest", t)
+}
+
+func TestQuoteTwoNest(t *testing.T) {
+	CommonExecuter("quote/two_nest", t)
+}
+
+func TestQuoteDecorate(t *testing.T) {
+	CommonExecuter("quote/decorate", t)
+}
+
+func TestQuoteVariety(t *testing.T) {
+	CommonExecuter("quote/variety", t)
+}

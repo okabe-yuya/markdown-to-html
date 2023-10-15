@@ -22,6 +22,9 @@ func Html(nodes []*parser.Node) string {
 			html += h
 		case parser.ND_NEW_LINE:
 			html += "<br />\n"
+		case parser.ND_QUOTE:
+			h, _ := quoteToHtml(node)
+			html += h
 		default:
 			continue
 		}
@@ -36,6 +39,31 @@ func header() string {
 	head += "<title>Generate html from markdown!</title>\n"
 	head += "</head>\n"
 	return head
+}
+
+func quoteToHtml(node *parser.Node) (string, *parser.Node) {
+	curNode := node
+	res := "<blockquote>\n"
+
+	for {
+		if curNode == nil {
+			break
+		}
+
+		if node.Depth == curNode.Depth {
+			res += valueToHtml(curNode.Nest)
+			curNode = curNode.Sub
+		} else {
+			if node.Depth > curNode.Depth {
+				break
+			}
+			r, bk := quoteToHtml(curNode)
+			curNode = bk
+			res += r
+		}
+	}
+	res += "</blockquote>\n"
+	return res, curNode
 }
 
 func listToHtml(node *parser.Node) (string, *parser.Node) {
