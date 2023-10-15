@@ -11,7 +11,7 @@ func ResultAndExpect(filename string) (string, string, error) {
 	if err != nil {
 		return "", "", err
 	}
-	html, err := GenerateHtml(md)
+	html, err := GenerateHtmlFromFile(md)
 	if err != nil {
 		return "", "", err
 	}

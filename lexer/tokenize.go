@@ -3,17 +3,15 @@ package lexer
 import (
 	"bufio"
 	"io"
-	"os"
 	"unicode"
 )
 
-func Tokenize(f *os.File) (*Token, error) {
+func Tokenize(br *bufio.Reader) (*Token, error) {
 	var curToken *Token
 	head := InitToken()
 	curToken = head
 	spaceCnt := 0
 
-	br := bufio.NewReader(f)
 	for {
 		c, _, err := br.ReadRune()
 		if err == io.EOF {
