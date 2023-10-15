@@ -117,3 +117,16 @@ func TestQuoteDecorate(t *testing.T) {
 func TestQuoteVariety(t *testing.T) {
 	CommonExecuter("quote/variety", t)
 }
+
+// backquote
+func TestBackQuoteSingle(t *testing.T) {
+	CommonExecuter("backquote/single", t)
+}
+
+func TestBackQuoteTriple(t *testing.T) {
+	CommonExecuter("backquote/triple", t)
+}
+
+func TestBackQuoteAny(t *testing.T) {
+	CommonExecuter("backquote/any", t)
+}

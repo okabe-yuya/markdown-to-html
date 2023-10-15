@@ -123,6 +123,12 @@ func _valueToHtml(node *parser.Node) string {
 		html += fmt.Sprintf("<b>%s</b>", node.Value)
 	case parser.ND_ITALIC:
 		html += fmt.Sprintf("<i>%s</i>", node.Value)
+	case parser.ND_BACKQUOTE:
+		if node.Level == 1 {
+			html += fmt.Sprintf("<code>%s</code>", node.Value)
+		} else if node.Level == 3 {
+			html += fmt.Sprintf("<pre><code>%s</code></pre>", node.Value)
+		}
 	}
 
 	if node.Nest != nil {

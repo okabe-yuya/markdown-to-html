@@ -21,13 +21,17 @@ L:
 	for curToken != nil {
 		switch curToken.Kind {
 		case lexer.RESERVED:
-			if curToken.Value == "*" {
+			switch curToken.Value {
+			case "*":
 				node_, curToken = parseWeight(curToken)
 				node.Nest = node_
-			} else if curToken.Value == "_" {
+			case "_":
 				node_, curToken = parseItalic(curToken)
 				node.Nest = node_
-			} else {
+			case "`":
+				node_, curToken = parseBackquote(curToken)
+				node.Nest = node_
+			default:
 				break L
 			}
 		case lexer.PLAIN_TEXT, lexer.BLANK:
