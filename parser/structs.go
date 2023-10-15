@@ -19,6 +19,7 @@ const (
 	ND_LIST     NodeKind = 4
 	ND_WEIGHT   NodeKind = 5
 	ND_ITALIC   NodeKind = 6
+	ND_QUOTE    NodeKind = 7
 )
 
 func NewNode(kind NodeKind, value string, level, depth int) *Node {

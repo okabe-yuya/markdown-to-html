@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	md, err := os.Open("static/md/italic/any_italic.md")
+	md, err := os.Open("static/md/quote/variety.md")
 	defer md.Close()
 	if err != nil {
 		fmt.Println(err)
