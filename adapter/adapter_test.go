@@ -75,6 +75,10 @@ func TestListWeight(t *testing.T) {
 	CommonExecuter("list/weight", t)
 }
 
+func TestListTextInList(t *testing.T) {
+	CommonExecuter("list/text_in_list", t)
+}
+
 // weight
 func TestWeightSimple(t *testing.T) {
 	CommonExecuter("weight/simple", t)

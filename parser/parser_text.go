@@ -35,7 +35,8 @@ L:
 				node_, curToken = parseLink(curToken)
 				node.Nest = node_
 			default:
-				break L
+				node.Value += curToken.Value
+				curToken = curToken.Next
 			}
 		case lexer.PLAIN_TEXT, lexer.BLANK:
 			if node.Nest == nil {
