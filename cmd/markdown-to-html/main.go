@@ -15,7 +15,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	html, err := adapter.GenerateHtml(md)
+	html, err := adapter.GenerateHtmlFromFile(md)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
