@@ -1,6 +1,8 @@
 package parser
 
-import "github.com/okabe-yuya/makrdown-to-html/lexer"
+import (
+	"github.com/okabe-yuya/makrdown-to-html/lexer"
+)
 
 func Ast(token *lexer.Token) ([]*Node, error) {
 	var node *Node
