@@ -20,5 +20,6 @@
 # Go workspace file
 go.work
 
-.vscode/
 verification.html
+*.wasm
+.DS_Store

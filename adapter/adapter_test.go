@@ -1,4 +1,4 @@
-package main
+package adapter
 
 import (
 	"fmt"
@@ -7,16 +7,16 @@ import (
 )
 
 func ResultAndExpect(filename string) (string, string, error) {
-	md, err := os.Open(fmt.Sprintf("static/md/%s.md", filename))
+	md, err := os.Open(fmt.Sprintf("../static/md/%s.md", filename))
 	if err != nil {
 		return "", "", err
 	}
-	html, err := GenrateHtml(md)
+	html, err := GenerateHtmlFromFile(md)
 	if err != nil {
 		return "", "", err
 	}
 
-	bytes, err := os.ReadFile(fmt.Sprintf("static/html/%s.html", filename))
+	bytes, err := os.ReadFile(fmt.Sprintf("../static/html/%s.html", filename))
 	if err != nil {
 		return "", "", err
 	}
