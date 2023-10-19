@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	md, err := os.Open("static/md/text_in_list.md")
+	md, err := os.Open("../../static/md/url.md")
 	defer md.Close()
 	if err != nil {
 		fmt.Println(err)
