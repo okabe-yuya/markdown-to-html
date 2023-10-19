@@ -35,7 +35,7 @@ func reserved(token *lexer.Token) (*Node, *lexer.Token) {
 		return parseHeader(token)
 	case "-":
 		return parseList(token)
-	case "*", "_", "`", "[":
+	case "*", "_", "`", "[", "!":
 		return parseText(token)
 	case ">":
 		return parseQuote(token)

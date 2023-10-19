@@ -22,6 +22,7 @@ const (
 	ND_QUOTE     NodeKind = 7
 	ND_BACKQUOTE NodeKind = 8
 	ND_LINK      NodeKind = 9
+	ND_IMAGE     NodeKind = 10
 )
 
 func NewNode(kind NodeKind, value string, level, depth int) *Node {
