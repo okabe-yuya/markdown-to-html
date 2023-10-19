@@ -34,6 +34,9 @@ L:
 			case "[":
 				node_, curToken = parseLink(curToken)
 				node.Nest = node_
+			case "!":
+				node_, curToken = parseImage(curToken)
+				node.Nest = node_
 			default:
 				node.Value += curToken.Value
 				curToken = curToken.Next

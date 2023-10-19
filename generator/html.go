@@ -133,6 +133,9 @@ func _valueToHtml(node *parser.Node) string {
 	case parser.ND_LINK:
 		html += fmt.Sprintf("<a href=%s>%s</a>", curNode.Value, curNode.Nest.Value)
 		curNode = curNode.Nest
+	case parser.ND_IMAGE:
+		html += fmt.Sprintf("<img src=%s alt=%s/>", curNode.Value, curNode.Nest.Value)
+		curNode = curNode.Nest
 	}
 
 	if curNode.Nest != nil {
