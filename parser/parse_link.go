@@ -25,7 +25,7 @@ func parseLink(token *lexer.Token) (*Node, *lexer.Token) {
 			link += curToken.Value
 			curToken = curToken.Next
 			if exepct(curToken, lexer.SEPARATE, "\n") {
-				value := fmt.Sprintf("[%s](%s)", display, link)
+				value := fmt.Sprintf("[%s](%s", display, link)
 				node = NewNode(ND_VALUE, value, 0, 0)
 				return node, curToken
 			}
