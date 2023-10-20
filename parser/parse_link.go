@@ -14,12 +14,21 @@ func parseLink(token *lexer.Token) (*Node, *lexer.Token) {
 	for curToken != nil && !exepct(curToken, lexer.RESERVED, "]") {
 		display += curToken.Value
 		curToken = curToken.Next
+		if exepct(curToken, lexer.SEPARATE, "\n") {
+			node = NewNode(ND_VALUE, "["+display, 0, 0)
+			return node, curToken
+		}
 	}
 	if expectNext(curToken, lexer.RESERVED, "(") {
 		curToken = seek(curToken, 2) // ]と(の2つ分
 		for curToken != nil && !exepct(curToken, lexer.RESERVED, ")") {
 			link += curToken.Value
 			curToken = curToken.Next
+			if exepct(curToken, lexer.SEPARATE, "\n") {
+				value := fmt.Sprintf("[%s](%s", display, link)
+				node = NewNode(ND_VALUE, value, 0, 0)
+				return node, curToken
+			}
 		}
 		node = NewNode(ND_LINK, link, 0, 0)
 		node.Nest = NewNode(ND_VALUE, display, 0, 0)
