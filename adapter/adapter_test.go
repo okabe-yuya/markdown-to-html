@@ -152,6 +152,10 @@ func TestLinkLinkAndText(t *testing.T) {
 	CommonExecuter("link/link_and_text", t)
 }
 
+func TestLinkText(t *testing.T) {
+	CommonExecuter("link/text", t)
+}
+
 // image
 func TestImageSimple(t *testing.T) {
 	CommonExecuter("image/simple", t)
