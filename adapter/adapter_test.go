@@ -88,6 +88,18 @@ func TestWeightInText(t *testing.T) {
 	CommonExecuter("weight/in_text", t)
 }
 
+func TestWeightAnyWeight(t *testing.T) {
+	CommonExecuter("weight/any_weight", t)
+}
+
+func TestWeightNotWeight(t *testing.T) {
+	CommonExecuter("weight/not_weight", t)
+}
+
+func TestWeightDoubleNotWeight(t *testing.T) {
+	CommonExecuter("weight/double_not_weight", t)
+}
+
 // italic
 func TestItalicSimple(t *testing.T) {
 	CommonExecuter("italic/simple", t)

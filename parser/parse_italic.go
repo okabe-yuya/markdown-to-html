@@ -8,15 +8,21 @@ func parseItalic(token *lexer.Token) (*Node, *lexer.Token) {
 
 	if expectNext(curToken, lexer.RESERVED, "_") {
 		curToken = seek(curToken, 2)
-		for curToken.Kind == lexer.PLAIN_TEXT {
+
+		for curToken.Kind != lexer.SEPARATE {
+			if exepct(curToken, lexer.RESERVED, "_") && expectNext(curToken, lexer.RESERVED, "_") {
+				node := NewNode(ND_ITALIC, value, 1, 0)
+				curToken = seek(curToken, 2)
+				return node, curToken
+			}
 			value += curToken.Value
 			curToken = curToken.Next
 		}
-		// **分だけ進めておく
-		curToken = seek(curToken, 2)
+
+		// curTokenのvalueに相乗り
+		curToken.Value = "__" + value
+		return nil, curToken
 	} else {
-		// ここにplain textのパースが必要
+		return nil, curToken
 	}
-	node := NewNode(ND_ITALIC, value, 1, 0)
-	return node, curToken
 }
