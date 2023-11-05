@@ -8,15 +8,20 @@ func parseWeight(token *lexer.Token) (*Node, *lexer.Token) {
 
 	if expectNext(curToken, lexer.RESERVED, "*") {
 		curToken = seek(curToken, 2)
-		for curToken.Kind == lexer.PLAIN_TEXT {
+
+		for curToken.Kind != lexer.SEPARATE {
+			if exepct(curToken, lexer.RESERVED, "*") && expectNext(curToken, lexer.RESERVED, "*") {
+				node := NewNode(ND_WEIGHT, value, 1, 0)
+				curToken = seek(curToken, 2)
+				return node, curToken
+			}
 			value += curToken.Value
 			curToken = curToken.Next
 		}
-		// **分だけ進めておく
-		curToken = seek(curToken, 2)
+		// curTokenのvalueに相乗り
+		curToken.Value = "**" + value
+		return nil, curToken
 	} else {
-		// ここにplain textのパースが必要
+		return nil, curToken
 	}
-	node := NewNode(ND_WEIGHT, value, 1, 0)
-	return node, curToken
 }
