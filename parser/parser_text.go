@@ -35,7 +35,14 @@ L:
 
 			case "_":
 				node_, curToken = parseItalic(curToken)
-				node.Nest = node_
+				if node_ != nil {
+					node.Nest = node_
+				} else {
+					node.Value += curToken.Value
+					if curToken.Kind != lexer.SEPARATE {
+						curToken = curToken.Next
+					}
+				}
 			case "`":
 				node_, curToken = parseBackquote(curToken)
 				node.Nest = node_

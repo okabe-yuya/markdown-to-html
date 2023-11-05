@@ -20,6 +20,7 @@
 # Go workspace file
 go.work
 
+verification.md
 verification.html
 *.wasm
 .DS_Store
